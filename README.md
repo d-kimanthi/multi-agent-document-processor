@@ -2,7 +2,7 @@
 
 A comprehensive multi-agent system for document processing, analysis, and intelligent querying using advanced NLP techniques.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Project Overview](#project-overview)
 - [Architecture Design](#architecture-design)
@@ -16,7 +16,7 @@ A comprehensive multi-agent system for document processing, analysis, and intell
 
 ---
 
-## 🎯 Project Overview
+## Project Overview
 
 The Smart Document Intelligence Platform is a **production-ready, multi-agent system** designed to showcase advanced AI engineering capabilities. It combines sophisticated backend processing with a modern frontend interface to create an intelligent document analysis platform.
 
@@ -42,7 +42,7 @@ Deploy:    Docker + Docker Compose
 
 ---
 
-## 🏗️ Architecture Design
+## Architecture Design
 
 ### System Architecture Diagram
 
@@ -96,7 +96,7 @@ Document Upload → Orchestrator → Curator → Analyzer → Summarizer → Que
 
 ---
 
-## 🚀 Quick Setup
+## Quick Setup
 
 ### Prerequisites
 
@@ -110,8 +110,8 @@ Document Upload → Orchestrator → Curator → Analyzer → Summarizer → Que
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd smart_document_platform
+git clone git@github.com:d-kimanthi/multi_agent_document_processor.git
+cd multi_agent_document_processor/backend
 
 # Start the entire platform
 docker-compose up -d
@@ -148,6 +148,7 @@ curl http://localhost:8000/api/v1/agents/status
 #### 1. Backend Development
 
 ```bash
+cd backend
 # Create virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -206,7 +207,7 @@ cd frontend && npm test  # Frontend tests
 
 ---
 
-## 🐳 Production Deployment
+## Production Deployment
 
 ### Docker Production Setup
 
@@ -265,17 +266,9 @@ gcloud run deploy doc-intelligence --source .
 kubectl apply -f deployment/kubernetes/
 ```
 
-#### Azure Container Instances
-
-```bash
-# Using Azure Container Instances
-az container create --resource-group myResourceGroup \
-  --file docker-compose.yml
-```
-
 ---
 
-## ⚙️ System Requirements
+## System Requirements
 
 ### Minimum Requirements
 
@@ -284,27 +277,7 @@ az container create --resource-group myResourceGroup \
 - **Storage**: 10GB free space
 - **Network**: Stable internet for model downloads
 
-### Recommended Production Requirements
-
-- **CPU**: 4+ cores, 3.0 GHz
-- **RAM**: 16GB+
-- **Storage**: 50GB+ SSD
-- **Network**: High bandwidth for vector operations
-
-### Model Resource Usage
-
-```
-spaCy en_core_web_sm:     ~50MB RAM
-Sentence Transformers:    ~500MB RAM
-BART Summarization:       ~1.5GB RAM
-PostgreSQL:               ~200MB RAM
-ChromaDB:                 ~300MB RAM
-Redis:                    ~100MB RAM
-```
-
----
-
-## 🔧 Configuration Guide
+## Configuration Guide
 
 ### Environment Variables
 
@@ -381,7 +354,7 @@ AGENT_CONFIG = {
 
 ---
 
-## 🧪 Testing & Validation
+## Testing & Validation
 
 ### Automated Testing Suite
 
@@ -413,16 +386,6 @@ pytest tests/test_performance/ -v
 - [ ] System performance under load
 ```
 
-### Load Testing
-
-```bash
-# Install locust for load testing
-pip install locust
-
-# Run load tests
-locust -f tests/load_tests.py --host=http://localhost:8000
-```
-
 ### Integration Testing
 
 ```bash
@@ -438,7 +401,7 @@ python scripts/test_nlp_accuracy.py
 
 ---
 
-## 🔍 Monitoring & Observability
+## Monitoring & Observability
 
 ### Health Checks
 
@@ -476,95 +439,6 @@ docker-compose logs -f chroma       # Vector store logs
 # Log locations in container
 /app/logs/app_YYYYMMDD.log          # Application logs
 /app/logs/agent_activity.log        # Agent communication logs
-```
-
----
-
-## 🐛 Troubleshooting
-
-### Common Issues and Solutions
-
-#### 1. Agent System Not Starting
-
-```bash
-# Check agent status
-curl http://localhost:8000/api/v1/agents/status
-
-# Restart specific agent
-curl -X POST http://localhost:8000/api/v1/agents/agents/curator/restart
-
-# Check logs for errors
-docker-compose logs -f app | grep -i error
-```
-
-#### 2. Database Connection Issues
-
-```bash
-# Check database connectivity
-docker-compose exec db psql -U postgres -d docplatform -c "SELECT 1;"
-
-# Reset database
-docker-compose down -v
-docker-compose up -d db
-alembic upgrade head
-```
-
-#### 3. Vector Store Problems
-
-```bash
-# Check ChromaDB status
-curl http://localhost:8001/api/v1/heartbeat
-
-# Reset vector store
-docker-compose restart chroma
-```
-
-#### 4. NLP Model Loading Issues
-
-```bash
-# Manually download models
-python -m spacy download en_core_web_sm
-python -c "from transformers import pipeline; pipeline('summarization', model='facebook/bart-large-cnn')"
-
-# Check model loading
-python -c "import spacy; nlp = spacy.load('en_core_web_sm'); print('Model loaded successfully')"
-```
-
-#### 5. Memory Issues
-
-```bash
-# Monitor memory usage
-docker stats
-
-# Adjust Docker memory limits
-# Edit docker-compose.yml and add memory limits
-services:
-  app:
-    deploy:
-      resources:
-        limits:
-          memory: 4G
-```
-
-### Performance Optimization
-
-#### Database Optimization
-
-```sql
--- Create additional indexes for better performance
-CREATE INDEX IF NOT EXISTS idx_documents_status_upload_date ON documents(status, upload_date);
-CREATE INDEX IF NOT EXISTS idx_analysis_results_document_type ON analysis_results(document_id, analysis_type);
-```
-
-#### Agent Performance Tuning
-
-```python
-# Adjust agent configuration in config.py
-AGENT_CONFIG = {
-    "message_queue_size": 2000,  # Increase for high throughput
-    "worker_threads": 4,         # Parallel processing
-    "batch_processing": True     # Enable batch processing
-}
 ```
 
 ### Debug Mode Setup
@@ -607,5 +481,3 @@ tail -f logs/agent_activity.log
 3. **Integrate Additional NLP Models** - Add domain-specific models
 4. **Scale for Production** - Implement load balancing and monitoring
 5. **Enhance Security** - Add authentication and authorization
-
-This platform provides a solid foundation for building production-ready AI systems and demonstrates advanced engineering capabilities perfect for portfolio presentations and technical interviews.
