@@ -598,12 +598,6 @@ tail -f logs/agent_activity.log
 - [BART Summarization](https://huggingface.co/facebook/bart-large-cnn)
 - [spaCy Language Models](https://spacy.io/models/en)
 
-### Community & Support
-
-- [Project Issues](https://github.com/your-repo/issues)
-- [Discussion Forum](https://github.com/your-repo/discussions)
-- [Contributing Guidelines](CONTRIBUTING.md)
-
 ---
 
 ## 🎯 Next Steps
